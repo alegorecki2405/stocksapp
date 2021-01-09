@@ -4,6 +4,7 @@ import olek.gorecki.stocksapp.stock_stats.StockStatistics;
 import olek.gorecki.stocksapp.user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -12,6 +13,8 @@ public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "ticker must be specified")
     private String ticker;
     private float openPrice;
     private char action;
@@ -20,7 +23,7 @@ public class Stock {
     private boolean stillOpen;
 
     @ManyToOne
-    @JoinColumn(name="user_id",nullable = false)
+    @JoinColumn(name="user_id")
     private User user;
 
     @OneToMany(mappedBy = "stock")
@@ -29,7 +32,7 @@ public class Stock {
     public Stock() {
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 
