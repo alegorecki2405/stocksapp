@@ -1,10 +1,13 @@
 package olek.gorecki.stocksapp.stock;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/stocks")
@@ -17,7 +20,13 @@ public class StockController {
     }
 
     @PostMapping
-    ResponseEntity<Stock> createStock(@RequestBody Stock stock) {
+    ResponseEntity<Object> createStock(@RequestBody @Valid Stock stock, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors()
+                    .stream().map(e->e.getDefaultMessage())
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(errors);
+        }
         Stock result = stockRepository.save(stock);
         return ResponseEntity.created(URI.create("/"+result.getId())).body(result);
     }

@@ -23,47 +23,51 @@ public class UserStatistics {
     public UserStatistics() {
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 
-    private LocalDateTime getDate() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDate() {
         return date;
     }
 
-    private void setDate(LocalDateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
-    private float getCurrentProfit() {
+    public float getCurrentProfit() {
         return currentProfit;
     }
 
-    private void setCurrentProfit(float currentProfit) {
+    public void setCurrentProfit(float currentProfit) {
         this.currentProfit = currentProfit;
     }
 
-    private float getMarketOpen() {
+    public float getMarketOpen() {
         return marketOpen;
     }
 
-    private void setMarketOpen(float marketOpen) {
+    public void setMarketOpen(float marketOpen) {
         this.marketOpen = marketOpen;
     }
 
-    private float getMarketClose() {
+    public float getMarketClose() {
         return marketClose;
     }
 
-    private void setMarketClose(float marketClose) {
+    public void setMarketClose(float marketClose) {
         this.marketClose = marketClose;
     }
 
-    private User getUser() {
+    public User getUser() {
         return user;
     }
 
-    private void setUser(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

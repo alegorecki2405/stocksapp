@@ -26,39 +26,59 @@ public class User {
     public User() {
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 
-    private String getFirsName() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirsName() {
         return firsName;
     }
 
-    private void setFirsName(String firsName) {
+    public void setFirsName(String firsName) {
         this.firsName = firsName;
     }
 
-    private String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    private void setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    private String getLogin() {
+    public String getLogin() {
         return login;
     }
 
-    private void setLogin(String login) {
+    public void setLogin(String login) {
         this.login = login;
     }
 
-    private float getMoney() {
+    public float getMoney() {
         return money;
     }
 
-    private void setMoney(float money) {
+    public void setMoney(float money) {
         this.money = money;
+    }
+
+    public Set<UserStatistics> getUserStatistics() {
+        return userStatistics;
+    }
+
+    public void setUserStatistics(Set<UserStatistics> userStatistics) {
+        this.userStatistics = userStatistics;
+    }
+
+    public Set<Stock> getStocks() {
+        return stocks;
+    }
+
+    public void setStocks(Set<Stock> stocks) {
+        this.stocks = stocks;
     }
 }

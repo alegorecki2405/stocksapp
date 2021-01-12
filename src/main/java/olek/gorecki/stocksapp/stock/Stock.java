@@ -4,7 +4,9 @@ import olek.gorecki.stocksapp.stock_stats.StockStatistics;
 import olek.gorecki.stocksapp.user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 @Entity
@@ -14,13 +16,21 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "ticker must be specified")
+    @NotBlank(message = "ticker must be specified")
     private String ticker;
+
+    @NotNull(message = "open price must be specified")
     private float openPrice;
-    private char action;
+
+    @NotBlank(message = "action must be specified")
+    @Pattern(regexp = "[bsBS]",message = "action must b buy(B,b) or sell(S,s)")
+    private String action;
+
+    @NotBlank(message = "full name must be specified")
     private String fullName;
-    private String category;
-    private boolean stillOpen;
+
+    private String category = "none";
+    private boolean stillOpen = true;
 
     @ManyToOne
     @JoinColumn(name="user_id")
@@ -36,59 +46,71 @@ public class Stock {
         return id;
     }
 
-    private String getTicker() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTicker() {
         return ticker;
     }
 
-    private void setTicker(String ticker) {
+    public void setTicker(String ticker) {
         this.ticker = ticker;
     }
 
-    private float getOpenPrice() {
+    public float getOpenPrice() {
         return openPrice;
     }
 
-    private void setOpenPrice(float openPrice) {
+    public void setOpenPrice(float openPrice) {
         this.openPrice = openPrice;
     }
 
-    private char getAction() {
-        return action;
-    }
-
-    private void setAction(char action) {
-        this.action = action;
-    }
-
-    private String getFullName() {
+    public String getFullName() {
         return fullName;
     }
 
-    private void setFullName(String fullName) {
+    public void setFullName(String fullName) {
         this.fullName = fullName;
     }
 
-    private String getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    private void setCategory(String category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
-    private boolean isStillOpen() {
+    public boolean isStillOpen() {
         return stillOpen;
     }
 
-    private void setStillOpen(boolean stillOpen) {
+    public void setStillOpen(boolean stillOpen) {
         this.stillOpen = stillOpen;
     }
 
-    private User getUser() {
+    public User getUser() {
         return user;
     }
 
-    private void setUser(User user) {
+    public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<StockStatistics> getStockStatistics() {
+        return stockStatistics;
+    }
+
+    public void setStockStatistics(Set<StockStatistics> stockStatistics) {
+        this.stockStatistics = stockStatistics;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 }
