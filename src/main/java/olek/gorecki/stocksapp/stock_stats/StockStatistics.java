@@ -3,9 +3,11 @@ package olek.gorecki.stocksapp.stock_stats;
 import olek.gorecki.stocksapp.stock.Stock;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
-@Table(name="STOCK_STATISTICS")
+@Table(name = "STOCK_STATISTICS")
 public class StockStatistics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,12 +16,30 @@ public class StockStatistics {
     private float open_price;
     private float close_price;
     private float money_value;
+    private LocalDate date;
+    private LocalTime time;
 
     @ManyToOne
-    @JoinColumn(name="stock_id",nullable = false)
+    @JoinColumn(name="stock_id")
     private Stock stock;
 
     public StockStatistics() {
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public Long getId() {

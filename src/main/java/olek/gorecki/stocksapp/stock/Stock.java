@@ -36,7 +36,7 @@ public class Stock {
     @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(mappedBy = "stock")
+    @OneToMany(mappedBy = "stock", cascade = CascadeType.ALL)
     private Set<StockStatistics> stockStatistics;
 
     public Stock() {
