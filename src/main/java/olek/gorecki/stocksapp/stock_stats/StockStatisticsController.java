@@ -4,6 +4,7 @@ import olek.gorecki.stocksapp.dates.DateRange;
 import olek.gorecki.stocksapp.stock.Stock;
 import olek.gorecki.stocksapp.stock.StockRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +25,8 @@ public class StockStatisticsController {
     @PostMapping("/{id}")
     ResponseEntity<Object> createStat(@RequestBody StockStatistics stockStatistics, @PathVariable Long id) throws RuntimeException {
         Stock stock = stockRepository.findById(id).orElseThrow(RuntimeException::new);
-        stock.getStockStatistics().add(stockStatistics);
-        stockRepository.save(stock);
-        return ResponseEntity.ok(stockStatistics);
+        stockStatistics.setStock(stock);
+        return ResponseEntity.ok(stockStatisticsRepostiory.save(stockStatistics));
     }
 
     @GetMapping("/{id}")
@@ -35,9 +35,10 @@ public class StockStatisticsController {
     }
 
     @GetMapping("/{id}/{range}")
-    ResponseEntity<List<StockStatistics>> findAllByIdAndDate(@PathVariable Long id
-            , @PathVariable DateRange range) {
+    ResponseEntity<List<StockStatistics>> findAllByIdAndDate(@PathVariable Long id,
+                                                             @PathVariable DateRange range,
+                                                             @RequestParam @Nullable String start,
+                                                             @RequestParam @Nullable String stop) {
         return null;
     }
-
 }

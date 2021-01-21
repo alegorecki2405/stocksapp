@@ -42,6 +42,11 @@ public class Stock {
     public Stock() {
     }
 
+    public void addStockStatistic(StockStatistics stockStatistics) {
+        this.stockStatistics.add(stockStatistics);
+        stockStatistics.setStock(this);
+    }
+
     public Long getId() {
         return id;
     }

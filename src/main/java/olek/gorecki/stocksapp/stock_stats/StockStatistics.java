@@ -82,7 +82,7 @@ public class StockStatistics {
         this.money_value = money_value;
     }
 
-    public Stock getStock() {
+    private Stock getStock() {
         return stock;
     }
 
