@@ -1,12 +1,13 @@
 package olek.gorecki.stocksapp.stock_stats;
 
+import olek.gorecki.stocksapp.dates.DataRangeResolver;
 import olek.gorecki.stocksapp.dates.DateRange;
 import olek.gorecki.stocksapp.stock.Stock;
 import olek.gorecki.stocksapp.stock.StockRepository;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,7 +31,13 @@ public class StockStatisticsService {
         return stockStatisticsRepostiory.findStockStatisticsByStockId(id);
     }
 
-    public List<StockStatistics> findAllByIdAndDate(Long id, DateRange range, @Nullable LocalTime start,@Nullable LocalTime stop) {
-        return null;
+    public List<StockStatistics> findAllByIdAndDate(Long id, DateRange range, @Nullable LocalDate start, @Nullable LocalDate stop) {
+        if (range.equals(DateRange.PICK)) {
+            return stockStatisticsRepostiory.findAllByDateIsBetweenAndStockId(start, stop, id);
+        } else {
+            LocalDate startDate = DataRangeResolver.resolveStartDate(range);
+            LocalDate endDate = DataRangeResolver.resolveEndDate(range);
+            return stockStatisticsRepostiory.findAllByDateIsBetweenAndStockId(startDate, endDate, id);
+        }
     }
 }

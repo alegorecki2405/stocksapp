@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface SqlStockStatisticsRepository extends StockStatisticsRepostiory, JpaRepository<StockStatistics,Long> {
-    List<StockStatistics> findAllByDateIsBetweenAndStockId(LocalDate startDate,LocalDate stopDate, Long id);
 }
