@@ -1,37 +1,32 @@
 package olek.gorecki.stocksapp.stock_stats;
 
 import olek.gorecki.stocksapp.dates.DateRange;
-import olek.gorecki.stocksapp.stock.Stock;
-import olek.gorecki.stocksapp.stock.StockRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/stockstatistics")
 public class StockStatisticsController {
 
-    private final StockStatisticsRepostiory stockStatisticsRepostiory;
-    private final StockRepository stockRepository;
+    private final StockStatisticsService stockStatisticsService;
 
-    public StockStatisticsController(StockStatisticsRepostiory stockStatisticsRepostiory, StockRepository stockRepository) {
-        this.stockStatisticsRepostiory = stockStatisticsRepostiory;
-        this.stockRepository = stockRepository;
+    public StockStatisticsController(StockStatisticsService stockStatisticsService) {
+        this.stockStatisticsService = stockStatisticsService;
     }
 
     //temp
     @PostMapping("/{id}")
-    ResponseEntity<Object> createStat(@RequestBody StockStatistics stockStatistics, @PathVariable Long id) throws RuntimeException {
-        Stock stock = stockRepository.findById(id).orElseThrow(RuntimeException::new);
-        stockStatistics.setStock(stock);
-        return ResponseEntity.ok(stockStatisticsRepostiory.save(stockStatistics));
+    ResponseEntity<Object> createStatistic(@RequestBody StockStatistics stockStatistics, @PathVariable Long id) throws RuntimeException {
+        return ResponseEntity.ok(stockStatisticsService.createStatistic(stockStatistics, id));
     }
 
     @GetMapping("/{id}")
     ResponseEntity<List<StockStatistics>> findAllById(@PathVariable Long id) {
-        return ResponseEntity.ok(stockStatisticsRepostiory.findStockStatisticsByStockId(id));
+        return ResponseEntity.ok(stockStatisticsService.findAllById(id));
     }
 
     @GetMapping("/{id}/{range}")
@@ -39,6 +34,11 @@ public class StockStatisticsController {
                                                              @PathVariable DateRange range,
                                                              @RequestParam @Nullable String start,
                                                              @RequestParam @Nullable String stop) {
-        return null;
+        if(range.equals(DateRange.PICK)) {
+            LocalTime startDate = LocalTime.parse(start);
+            LocalTime stopDate = LocalTime.parse(stop);
+            return ResponseEntity.ok(stockStatisticsService.findAllByIdAndDate(id,range,startDate,stopDate));
+        }
+        return ResponseEntity.ok(stockStatisticsService.findAllByIdAndDate(id,range,null,null));
     }
 }

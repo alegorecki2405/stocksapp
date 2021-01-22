@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/stocks")
 public class StockController {
 
-    private final StockRepository stockRepository;
+    private final StockService stockService;
 
-    public StockController(StockRepository stockRepository) {
-        this.stockRepository = stockRepository;
+    public StockController(StockService stockService) {
+        this.stockService = stockService;
     }
 
     @PostMapping
@@ -27,18 +27,18 @@ public class StockController {
                     .collect(Collectors.toList());
             return ResponseEntity.ok(errors);
         }
-        Stock result = stockRepository.save(stock);
+        Stock result = stockService.createStock(stock);
         return ResponseEntity.created(URI.create("/"+result.getId())).body(result);
     }
 
     @GetMapping
     ResponseEntity<List<Stock>> readAllStocks() {
-        return ResponseEntity.ok(stockRepository.findAll());
+        return ResponseEntity.ok(stockService.readAllStocks());
     }
 
     @GetMapping("/{id}")
     ResponseEntity<Stock> findById(@PathVariable Long id) {
-        return stockRepository.findById(id)
+        return stockService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
