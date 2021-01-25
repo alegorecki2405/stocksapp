@@ -23,7 +23,7 @@ public class Stock {
     private float openPrice;
 
     @NotBlank(message = "action must be specified")
-    @Pattern(regexp = "[bsBS]",message = "action must b buy(B,b) or sell(S,s)")
+    @Pattern(regexp = "[bsBS]", message = "action must b buy(B,b) or sell(S,s)")
     private String action;
 
     @NotBlank(message = "full name must be specified")
@@ -31,9 +31,11 @@ public class Stock {
 
     private String category = "none";
     private boolean stillOpen = true;
+    @NotNull(message = "money value must be specified")
+    private Float moneyValue;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "stock", cascade = CascadeType.ALL)
@@ -45,6 +47,14 @@ public class Stock {
     public void addStockStatistic(StockStatistics stockStatistics) {
         this.stockStatistics.add(stockStatistics);
         stockStatistics.setStock(this);
+    }
+
+    public Float getMoneyValue() {
+        return moneyValue;
+    }
+
+    public void setMoneyValue(Float moneyValue) {
+        this.moneyValue = moneyValue;
     }
 
     public Long getId() {

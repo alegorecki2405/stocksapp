@@ -12,15 +12,16 @@ public class StockStatistics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private float current_price;
-    private float open_price;
-    private float close_price;
-    private float money_value;
+    private float closePrice;
+    private float openPrice;
+    private float high;
+    private float low;
+    private float moneyValue;
     private LocalDate date;
     private LocalTime time;
 
     @ManyToOne
-    @JoinColumn(name="stock_id")
+    @JoinColumn(name = "stock_id")
     private Stock stock;
 
     public StockStatistics() {
@@ -50,36 +51,44 @@ public class StockStatistics {
         this.id = id;
     }
 
-    public float getCurrent_price() {
-        return current_price;
+    public float getClosePrice() {
+        return closePrice;
     }
 
-    public void setCurrent_price(float current_price) {
-        this.current_price = current_price;
+    public void setClosePrice(float current_price) {
+        this.closePrice = current_price;
     }
 
-    public float getOpen_price() {
-        return open_price;
+    public float getOpenPrice() {
+        return openPrice;
     }
 
-    public void setOpen_price(float open_price) {
-        this.open_price = open_price;
+    public void setOpenPrice(float open_price) {
+        this.openPrice = open_price;
     }
 
-    public float getClose_price() {
-        return close_price;
+    public float getHigh() {
+        return high;
     }
 
-    public void setClose_price(float close_price) {
-        this.close_price = close_price;
+    public void setHigh(float high) {
+        this.high = high;
     }
 
-    public float getMoney_value() {
-        return money_value;
+    public float getLow() {
+        return low;
     }
 
-    public void setMoney_value(float money_value) {
-        this.money_value = money_value;
+    public void setLow(float low) {
+        this.low = low;
+    }
+
+    public float getMoneyValue() {
+        return moneyValue;
+    }
+
+    public void setMoneyValue(float money_value) {
+        this.moneyValue = money_value;
     }
 
     private Stock getStock() {
