@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SqlUserRepository extends UserRepository, JpaRepository<User, Long> {
+
 }
