@@ -20,9 +20,15 @@ public class User {
     private String username;
     private float money;
     private int active;
-    private String roles;
-    private String permissions;
+    private String roles = "";
+    private String permissions = "";
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserStatistics> userStatistics;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Stock> stocks;
 
     public User(Long id,
                 String firsName,
@@ -43,12 +49,6 @@ public class User {
         this.permissions = permissions;
         this.password = password;
     }
-
-    @OneToMany(mappedBy = "user")
-    private Set<UserStatistics> userStatistics;
-
-    @OneToMany(mappedBy = "user")
-    private Set<Stock> stocks;
 
     public User() {
     }
