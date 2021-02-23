@@ -1,11 +1,14 @@
 package olek.gorecki.stocksapp.stock;
 
+import olek.gorecki.stocksapp.user.User;
+import olek.gorecki.stocksapp.user.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,32 +17,40 @@ import java.util.stream.Collectors;
 public class StockController {
 
     private final StockService stockService;
+    private final UserRepository userRepository;
 
-    public StockController(StockService stockService) {
+    public StockController(StockService stockService, UserRepository userRepository) {
         this.stockService = stockService;
+        this.userRepository = userRepository;
     }
 
-    @PostMapping
-    ResponseEntity<Object> createStock(@RequestBody @Valid Stock stock, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+    @PostMapping("/{id}")
+    ResponseEntity<Object> createStock(@RequestBody @Valid Stock stock, @PathVariable Long id, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             List<String> errors = bindingResult.getAllErrors()
-                    .stream().map(e->e.getDefaultMessage())
+                    .stream().map(e -> e.getDefaultMessage())
                     .collect(Collectors.toList());
             return ResponseEntity.ok(errors);
         }
-        Stock result = stockService.createStock(stock);
-        return ResponseEntity.created(URI.create("/"+result.getId())).body(result);
+        Stock result = stockService.createStock(stock, id);
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
-    @GetMapping
-    ResponseEntity<List<Stock>> readAllStocks() {
-        return ResponseEntity.ok(stockService.readAllStocks());
-    }
+//    @GetMapping
+//    ResponseEntity<List<Stock>> readAllStocks() {
+//        return ResponseEntity.ok(stockService.readAllStocks());
+//    }
 
     @GetMapping("/{id}")
     ResponseEntity<Stock> findById(@PathVariable Long id) {
         return stockService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    ResponseEntity<List<Stock>> findAllStocksByUser(Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        return ResponseEntity.ok(stockService.readAllStocksByUser(user));
     }
 }

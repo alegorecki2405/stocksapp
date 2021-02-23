@@ -1,5 +1,6 @@
 package olek.gorecki.stocksapp.justtotestcontrollers;
 
+import olek.gorecki.stocksapp.stock.StockService;
 import olek.gorecki.stocksapp.user.User;
 import olek.gorecki.stocksapp.user.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Service;
 public class DBinit implements CommandLineRunner {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+    private StockService stockService;
 
-    public DBinit(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public DBinit(UserRepository userRepository, PasswordEncoder passwordEncoder, StockService stockService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.stockService = stockService;
     }
 
     @Override

@@ -33,6 +33,7 @@ public class Stock {
     private boolean stillOpen = true;
     @NotNull(message = "money value must be specified")
     private Float moneyValue;
+    private Long leverage;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -51,6 +52,14 @@ public class Stock {
 
     public Float getMoneyValue() {
         return moneyValue;
+    }
+
+    public Long getLeverage() {
+        return leverage;
+    }
+
+    public void setLeverage(Long leverage) {
+        this.leverage = leverage;
     }
 
     public void setMoneyValue(Float moneyValue) {
