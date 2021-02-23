@@ -25,7 +25,7 @@ public class StockStatisticsController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<List<StockStatistics>> findAllById(@PathVariable Long id) {
+    ResponseEntity<List<StockStatisticReadModel>> findAllById(@PathVariable Long id) {
         return ResponseEntity.ok(stockStatisticsService.findAllById(id));
     }
 

@@ -8,6 +8,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,14 +22,19 @@ public class StockStatisticsService {
         this.stockRepository = stockRepository;
     }
 
-    public StockStatistics createStatistic(StockStatistics stockStatistics, Long id) {
+    public StockStatisticReadModel createStatistic(StockStatistics stockStatistics, Long id) {
         Stock stock = stockRepository.findById(id).orElseThrow(RuntimeException::new);
         stockStatistics.setStock(stock);
-        return stockStatisticsRepostiory.save(stockStatistics);
+        StockStatisticReadModel result = new StockStatisticReadModel(stockStatisticsRepostiory.save(stockStatistics));
+        return result;
     }
 
-    public List<StockStatistics> findAllById(Long id) {
-        return stockStatisticsRepostiory.findStockStatisticsByStockId(id);
+    public List<StockStatisticReadModel> findAllById(Long id) {
+        List<StockStatisticReadModel> result = new ArrayList<>();
+        stockStatisticsRepostiory.findStockStatisticsByStockId(id).forEach(
+                stockStatistics -> result.add(new StockStatisticReadModel(stockStatistics))
+        );
+        return result;
     }
 
     public List<StockStatistics> findAllByIdAndDate(Long id, DateRange range, @Nullable LocalDate start, @Nullable LocalDate stop) {

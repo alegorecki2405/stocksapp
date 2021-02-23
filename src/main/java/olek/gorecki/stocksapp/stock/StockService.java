@@ -4,6 +4,8 @@ import olek.gorecki.stocksapp.user.User;
 import olek.gorecki.stocksapp.user.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +33,10 @@ public class StockService {
         return stockRepository.findById(id);
     }
 
-    public List<Stock> readAllStocksByUser(User user) {
-        return stockRepository.findAllByUser(user);
+    public List<StockReadModel> readAllStocksByUser(Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        List<StockReadModel> result = new ArrayList<>();
+        stockRepository.findAllByUser(user).forEach(stock -> result.add(new StockReadModel(stock)));
+        return result;
     }
 }

@@ -24,6 +24,7 @@ public class StockController {
         this.userRepository = userRepository;
     }
 
+    //just for testing
     @PostMapping("/{id}")
     ResponseEntity<Object> createStock(@RequestBody @Valid Stock stock, @PathVariable Long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -36,21 +37,22 @@ public class StockController {
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
-//    @GetMapping
-//    ResponseEntity<List<Stock>> readAllStocks() {
-//        return ResponseEntity.ok(stockService.readAllStocks());
-//    }
+    @PostMapping
+    ResponseEntity<Object> createStock(@RequestBody @Valid Stock stock, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        Stock result = stockService.createStock(stock, user.getId());
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
+    }
 
     @GetMapping("/{id}")
-    ResponseEntity<Stock> findById(@PathVariable Long id) {
+    ResponseEntity<StockReadModel> findById(@PathVariable Long id) {
         return stockService.findById(id)
-                .map(ResponseEntity::ok)
+                .map(body -> ResponseEntity.ok(new StockReadModel(body)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    ResponseEntity<List<Stock>> findAllStocksByUser(Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
-        return ResponseEntity.ok(stockService.readAllStocksByUser(user));
+    ResponseEntity<List<StockReadModel>> findAllStocksByUser(Principal principal) {
+        return ResponseEntity.ok(stockService.readAllStocksByUser(principal));
     }
 }

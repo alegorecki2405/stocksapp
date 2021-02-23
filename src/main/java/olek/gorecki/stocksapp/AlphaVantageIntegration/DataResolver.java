@@ -1,23 +1,19 @@
 package olek.gorecki.stocksapp.AlphaVantageIntegration;
 
-import olek.gorecki.stocksapp.stock.StockService;
-import olek.gorecki.stocksapp.stock_stats.StockStatisticsRepostiory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataResolver {
-    private static final Logger logger = LoggerFactory.getLogger(DataResolver.class);
-    private StockService stockService;
-    private StockStatisticsRepostiory stockStatisticsRepostiory;
-
-    public DataResolver(StockService stockService, StockStatisticsRepostiory stockStatisticsRepostiory) {
-        this.stockService = stockService;
-        this.stockStatisticsRepostiory = stockStatisticsRepostiory;
-    }
-
-//    @Scheduled(fixedDelay = 3000)
+//    private static final Logger logger = LoggerFactory.getLogger(DataResolver.class);
+//    private StockService stockService;
+//    private StockStatisticsRepostiory stockStatisticsRepostiory;
+//
+//    public DataResolver(StockService stockService, StockStatisticsRepostiory stockStatisticsRepostiory) {
+//        this.stockService = stockService;
+//        this.stockStatisticsRepostiory = stockStatisticsRepostiory;
+//    }
+//
+//    @Scheduled(fixedDelay = 300000000)
 //    public void getStockStatstics() {
 //        stockService.readAllStocks().forEach(stock -> {
 //            try {
