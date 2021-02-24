@@ -1,49 +1,49 @@
 package olek.gorecki.stocksapp.user_stats;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class UserStatisticReadModel {
-    private LocalDateTime date;
-    private float currentProfit;
-    private float marketOpen;
-    private float marketClose;
+    private LocalDate date;
+    private float marketOpenMoneyValue;
+    private float marketCloseMoneyValue;
+    private float percentToday;
 
     public UserStatisticReadModel(UserStatistics userStatistics) {
         this.date = userStatistics.getDate();
-        this.currentProfit = userStatistics.getCurrentProfit();
-        this.marketOpen = userStatistics.getMarketOpen();
-        this.marketClose = userStatistics.getMarketClose();
+        this.marketOpenMoneyValue = userStatistics.getMarketOpenMoneyValue();
+        this.marketCloseMoneyValue = userStatistics.getMarketCloseMoneyValue();
+        this.percentToday = userStatistics.getPercentToday();
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public float getCurrentProfit() {
-        return currentProfit;
+    public float getMarketOpenMoneyValue() {
+        return marketOpenMoneyValue;
     }
 
-    public void setCurrentProfit(float currentProfit) {
-        this.currentProfit = currentProfit;
+    public void setMarketOpenMoneyValue(float marketOpenMoneyValue) {
+        this.marketOpenMoneyValue = marketOpenMoneyValue;
     }
 
-    public float getMarketOpen() {
-        return marketOpen;
+    public float getMarketCloseMoneyValue() {
+        return marketCloseMoneyValue;
     }
 
-    public void setMarketOpen(float marketOpen) {
-        this.marketOpen = marketOpen;
+    public void setMarketCloseMoneyValue(float marketCloseMoneyValue) {
+        this.marketCloseMoneyValue = marketCloseMoneyValue;
     }
 
-    public float getMarketClose() {
-        return marketClose;
+    public float getPercentToday() {
+        return percentToday;
     }
 
-    public void setMarketClose(float marketClose) {
-        this.marketClose = marketClose;
+    public void setPercentToday(float percentToday) {
+        this.percentToday = percentToday;
     }
 }

@@ -3,24 +3,32 @@ package olek.gorecki.stocksapp.user_stats;
 import olek.gorecki.stocksapp.user.User;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
-@Table(name="USER_STATISTICS")
+@Table(name = "USER_STATISTICS")
 public class UserStatistics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime date;
-    private float currentProfit;
-    private float marketOpen;
-    private float marketClose;
+    private LocalDate date;
+    private float marketOpenMoneyValue;
+    private float marketCloseMoneyValue;
+    private float percentToday;
 
     @ManyToOne
-    @JoinColumn(name="user_id",nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public UserStatistics() {
+    }
+
+    public float getPercentToday() {
+        return percentToday;
+    }
+
+    public void setPercentToday(float percentToday) {
+        this.percentToday = percentToday;
     }
 
     public Long getId() {
@@ -31,36 +39,28 @@ public class UserStatistics {
         this.id = id;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public float getCurrentProfit() {
-        return currentProfit;
+    public float getMarketOpenMoneyValue() {
+        return marketOpenMoneyValue;
     }
 
-    public void setCurrentProfit(float currentProfit) {
-        this.currentProfit = currentProfit;
+    public void setMarketOpenMoneyValue(float marketOpen) {
+        this.marketOpenMoneyValue = marketOpen;
     }
 
-    public float getMarketOpen() {
-        return marketOpen;
+    public float getMarketCloseMoneyValue() {
+        return marketCloseMoneyValue;
     }
 
-    public void setMarketOpen(float marketOpen) {
-        this.marketOpen = marketOpen;
-    }
-
-    public float getMarketClose() {
-        return marketClose;
-    }
-
-    public void setMarketClose(float marketClose) {
-        this.marketClose = marketClose;
+    public void setMarketCloseMoneyValue(float marketClose) {
+        this.marketCloseMoneyValue = marketClose;
     }
 
     public User getUser() {

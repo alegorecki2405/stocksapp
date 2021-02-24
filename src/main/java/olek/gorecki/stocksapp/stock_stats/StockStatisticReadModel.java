@@ -13,8 +13,8 @@ public class StockStatisticReadModel {
     private LocalTime time;
 
     public StockStatisticReadModel(StockStatistics stockStatistics) {
-        this.closePrice = stockStatistics.getClosePrice();
-        this.openPrice = stockStatistics.getOpenPrice();
+        this.closePrice = stockStatistics.getCloseMarketPrice();
+        this.openPrice = stockStatistics.getOpenMarketPrice();
         this.high = stockStatistics.getHigh();
         this.low = stockStatistics.getLow();
         this.moneyValue = stockStatistics.getMoneyValue();

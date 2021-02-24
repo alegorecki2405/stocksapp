@@ -12,11 +12,12 @@ public class StockStatistics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private float closePrice;
-    private float openPrice;
+    private float closeMarketPrice;
+    private float openMarketPrice;
     private float high;
     private float low;
     private float moneyValue;
+    private float changePercent;
     private LocalDate date;
     private LocalTime time;
 
@@ -25,6 +26,14 @@ public class StockStatistics {
     private Stock stock;
 
     public StockStatistics() {
+    }
+
+    public float getChangePercent() {
+        return changePercent;
+    }
+
+    public void setChangePercent(float changePercent) {
+        this.changePercent = changePercent;
     }
 
     public LocalDate getDate() {
@@ -51,20 +60,20 @@ public class StockStatistics {
         this.id = id;
     }
 
-    public float getClosePrice() {
-        return closePrice;
+    public float getCloseMarketPrice() {
+        return closeMarketPrice;
     }
 
-    public void setClosePrice(float current_price) {
-        this.closePrice = current_price;
+    public void setCloseMarketPrice(float current_price) {
+        this.closeMarketPrice = current_price;
     }
 
-    public float getOpenPrice() {
-        return openPrice;
+    public float getOpenMarketPrice() {
+        return openMarketPrice;
     }
 
-    public void setOpenPrice(float open_price) {
-        this.openPrice = open_price;
+    public void setOpenMarketPrice(float open_price) {
+        this.openMarketPrice = open_price;
     }
 
     public float getHigh() {

@@ -23,6 +23,7 @@ public class User {
     private String roles = "";
     private String permissions = "";
     private String password;
+    private String apiKey;
 
     @OneToMany(mappedBy = "user")
     private Set<UserStatistics> userStatistics;
@@ -38,7 +39,8 @@ public class User {
                 int active,
                 String roles,
                 String permissions,
-                String password) {
+                String password,
+                String apiKey) {
         this.id = id;
         this.firsName = firsName;
         this.lastName = lastName;
@@ -48,9 +50,18 @@ public class User {
         this.roles = roles;
         this.permissions = permissions;
         this.password = password;
+        this.apiKey = apiKey;
     }
 
     public User() {
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public Long getId() {
